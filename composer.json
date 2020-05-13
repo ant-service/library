@@ -1,0 +1,16 @@
+{
+    "name": "ant-service/library",
+    "description": "ant service",
+    "type": "library",
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MaHaiBo",
+            "email": "mahaibo@hongbang.js.cn"
+        }
+    ],
+    "minimum-stability": "dev"
+}
