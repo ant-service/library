@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '9db43461a2bf3ff645a4f660a59d82c9' => $baseDir . '/test.php',
+    'a25f7570f5b960c3d90882bf965ab97e' => $baseDir . '/core/QuickFun.php',
 );

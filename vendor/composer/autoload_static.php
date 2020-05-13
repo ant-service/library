@@ -7,12 +7,48 @@ namespace Composer\Autoload;
 class ComposerStaticInita4d603e10b323b95a86b37dc154bfec3
 {
     public static $files = array (
-        '9db43461a2bf3ff645a4f660a59d82c9' => __DIR__ . '/../..' . '/test.php',
+        'a25f7570f5b960c3d90882bf965ab97e' => __DIR__ . '/../..' . '/core/QuickFun.php',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'A' => 
+        array (
+            'AntService\\Src\\Output\\' => 22,
+            'AntService\\Src\\Interfaces\\' => 26,
+            'AntService\\Src\\DataBase\\' => 24,
+            'AntService\\Src\\Common\\' => 22,
+            'AntService\\' => 11,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'AntService\\Src\\Output\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/source/output',
+        ),
+        'AntService\\Src\\Interfaces\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/source/interfaces',
+        ),
+        'AntService\\Src\\DataBase\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/source/database',
+        ),
+        'AntService\\Src\\Common\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/source/common',
+        ),
+        'AntService\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core',
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInita4d603e10b323b95a86b37dc154bfec3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita4d603e10b323b95a86b37dc154bfec3::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }
