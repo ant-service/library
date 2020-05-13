@@ -12,5 +12,10 @@
             "email": "mahaibo@hongbang.js.cn"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+        "files": [
+            "test.php"
+        ]
+    }
 }
