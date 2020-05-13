@@ -1,10 +1,19 @@
 <?php
 
 use AntService\OutPut;
+use AntService\Src\Common\Config;
+use AntService\Src\Common\DataType;
+
+/** 获取用户目录地址 */
+function getUserDir()
+{
+    return $_SERVER['DOCUMENT_ROOT'];
+}
+
 
 function convertArray($variate, string $delimiter = ',')
 {
-    return Common::convertArray($variate, $delimiter);
+    return DataType::convertArray($variate, $delimiter);
 }
 
 /**

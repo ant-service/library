@@ -1,6 +1,13 @@
 <?php
 
-class MYSQL_CORE_OTS
+namespace AntService\Src\DataBase;
+
+use AntService\OutPut;
+use AntService\Src\Common\Config;
+use PDO;
+use PDOException;
+
+class PdoConn
 {
     private static $conn = null;
 
@@ -10,18 +17,19 @@ class MYSQL_CORE_OTS
      */
     public static function getConnect(): PDO
     {
+        $databaseType = Config::readEnv('PDO_DATABASE');
         if (self::$conn != null) {
             return self::$conn;
         }
         if (!class_exists('pdo')) {
-            Output::errorOutput('VERIFY_PDO_FAIL', '验证PDO失败,请开启PDO拓展');
+            OutPut::error('VERIFY_PDO_FAIL', '验证PDO失败,请开启PDO拓展');
         }
         $database = Config::read('DataBase');
         $host = $database['HostAddress'] ?? '127.0.0.1';
         $port = $database['HostPort'] ?? 3306;
         $dbName = $database['DbName'] ?? '';
         return self::$conn = new PDO(
-            "mysql:host={$host}:{$port};dbname={$dbName}",
+            "{$databaseType}:host={$host}:{$port};dbname={$dbName}",
             $database['UserName'],
             $database['Password'],
             array(PDO::ATTR_PERSISTENT => true)

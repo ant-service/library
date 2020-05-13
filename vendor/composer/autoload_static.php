@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInita4d603e10b323b95a86b37dc154bfec3
 {
     public static $files = array (
+        '6df254737b22ea0203f28b20a7462f0d' => __DIR__ . '/../..' . '/core/Initialize.php',
         'a25f7570f5b960c3d90882bf965ab97e' => __DIR__ . '/../..' . '/core/QuickFun.php',
     );
 
@@ -36,7 +37,7 @@ class ComposerStaticInita4d603e10b323b95a86b37dc154bfec3
         ),
         'AntService\\Src\\Common\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/source/common',
+            0 => __DIR__ . '/../..' . '/source/Common',
         ),
         'AntService\\' => 
         array (

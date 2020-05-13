@@ -2,6 +2,8 @@
 
 namespace AntService;
 
+use AntService\Src\Common\Config;
+
 class OutPut
 {
 
@@ -46,7 +48,7 @@ class OutPut
 
     private static function initType(): void
     {
-        $className = 'AntService\Src\Output\Json';
+        $className = 'AntService\Src\Output\\' . Config::readEnv('RETURN_DATE_FORMAT');
         self::$returnObject = new $className();
     }
 }

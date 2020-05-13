@@ -2,8 +2,6 @@
 
 namespace AntService\Src\Interfaces;
 
-use DataType;
-
 interface OutPut
 {
 
