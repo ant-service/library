@@ -7,13 +7,12 @@ class Module
 {
     private static $arguments = array();
 
-    public static function use(string $moduleName, string $version, array $arguments = array())
+    public static function use(string $moduleName, array $arguments = array())
     {
         $userDir = self::getUserDir();
-        var_dump($userDir);exit();
         self::setArguments($moduleName,$arguments);
         
-        $moduleFile = UNAS . AntRequest::getHost() . '/module/' . $moduleName;
+        $moduleFile = $userDir . 'module/' . $moduleName;
 
         if(is_file($moduleFile)){
             $isDownload = false;
@@ -25,7 +24,7 @@ class Module
         require_once $moduleFile;
 
         if (!class_exists($moduleName)) {
-            Output::errorOutput('VERIFY_CLASS_FAIL', '验证模块类失败,该模块[' . $moduleName . ']未实现同名类');
+            Output::error('VERIFY_CLASS_FAIL', '验证模块类失败,该模块[' . $moduleName . ']未实现同名类');
         }
         $isDownload and self::firstLoad($moduleName);
         return new $moduleName();
@@ -74,10 +73,10 @@ class Module
         $downloadUrl = 'compress.zlib://' . Config::readEnv('SERVICE_URL') . '/module/' . $moduleName . '.msphp';
         $result = file_get_contents($downloadUrl);
         if (!$result) {
-            Output::errorOutput('DOWNLOAD_MODULE_FAIL', '官方模块库中不存在此模块');
+            Output::error('DOWNLOAD_MODULE_FAIL', '官方模块库中不存在此模块');
         }
         if (!file_put_contents($moduleFile, $result)) {
-            Output::errorOutput('WRITE_MODULE_FAIL', '写入模块失败,请检查是否拥有写入权限[' . $moduleFile . ']');
+            Output::error('WRITE_MODULE_FAIL', '写入模块失败,请检查是否拥有写入权限[' . $moduleFile . ']');
         }
     }
 

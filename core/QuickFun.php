@@ -1,5 +1,6 @@
 <?php
 
+use AntService\Module;
 use AntService\OutPut;
 use AntService\Src\Common\Config;
 use AntService\Src\Common\DataType;
@@ -45,7 +46,7 @@ function useModule(string $moduleName, array $payload = array())
 
 function getPayload(string $key = '')
 {
-    return Module::getPayload($key);
+    return Module::getArguments($key);
 }
 
 /**
@@ -116,28 +117,4 @@ function registerCyclicTask(string $moduleName, string $funcName, int $interval,
     setCache('_system_tasks', $taskItems);
     if (getCache('_system_tasks.' . $moduleName . '_' . $funcName)) return true;
     return false;
-}
-
-/**
- * Undocumented function
- * @param string $taskName
- * @param string $moduleName 
- * @param string $funcName 函数名
- * @param integer $msec 多少秒后执行
- * @return void
- * @author mahaibo <mahaibo@hongbang.js.cn>
- */
-function registerAfterTask(string $taskName, string $moduleName, string $funcName, int $msec): bool
-{
-    return true;
-}
-
-function unregisterTask(string $taskName, string $moduleName): bool
-{
-    return true;
-}
-
-function getTaskInfo(string $taskName, string $moduleName): array
-{
-    return array();
 }
