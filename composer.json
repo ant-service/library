@@ -16,7 +16,7 @@
     "autoload": {
         "psr-4": {
             "AntService\\": "core",
-            "AntService\\Src\\Common\\": "source/Common/",
+            "AntService\\Src\\Common\\": "source/common/",
             "AntService\\Src\\DataBase\\": "source/database/",
             "AntService\\Src\\Interfaces\\": "source/interfaces/",
             "AntService\\Src\\Output\\": "source/output/"
