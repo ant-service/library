@@ -70,9 +70,11 @@ class PdoConn
     public static function execute(string $sqlStr): int
     {
         try {
-            return self::getConnect()->exec($sqlStr);
+            $result = self::getConnect()->exec($sqlStr);
+            if ($result === false) OutPut::error('EXECUTE_MYSQL_ERROR', '' . self::getConnect()->errorInfo()[2] ?? '');
+            return $result;
         } catch (PDOException $e) {
-            errorOutput('EXECUTE_MYSQL_ERROR', '执行Mysql错误,错误结果:' . $e->getMessage());
+            OutPut::error('EXECUTE_MYSQL_ERROR', '执行Mysql错误,错误结果:' . $e->getMessage());
         }
     }
 
@@ -81,16 +83,15 @@ class PdoConn
      * @param string $sqlStr 待查询的Sql语句
      * @return array 查询的结果
      */
-    public static function query(string $sqlStr): array
+    public static function query(string $sqlStr, $ignoreError = false): array
     {
         try {
             $result = self::getConnect()->query($sqlStr);
-            if (!$result) {
-                return array();
-            }
+            if ($ignoreError && $result === false) return array();
+            if ($result === false) OutPut::error('QUERY_MYSQL_ERROR', '' . self::getConnect()->errorInfo()[2] ?? '');
             return $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            errorOutput('QUERY_MYSQL_ERROR', '查询Mysql错误,错误结果:' . $e->getMessage());
+            OutPut::error('QUERY_MYSQL_ERROR', '查询Mysql错误,错误结果:' . iconv('gbk', 'utf-8', $e->getMessage()));
         }
     }
 }

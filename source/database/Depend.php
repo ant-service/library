@@ -2,14 +2,22 @@
 
 namespace AntService\Src\DataBase;
 
+use AntService\Src\Common\Config;
+
 class Depend
 {
+    /**
+     * 同步数据表
+     * @param array $dbDepend 依赖规则 例：['user' => 'id,nickname,age', 'user_account' => 'id,uid,username,password']
+     * @return boolean
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
     public static function syncDataBase($dbDepend): bool
     {
-        $serviceUrl = readConfig('Framework.ServiceUrl') . '/dbstruct/';
-        $dataBaseConfig = readConfig('DataBase');
+        $serviceUrl = Config::readEnv('SERVICE_URL') . '/dbstruct/';
+        $dataBaseConfig = Config::read('database');
         foreach ($dbDepend as $table => $fields) {
-            $tableInfo = PdoConn::query("show columns from {$table}");
+            $tableInfo = PdoConn::query("show columns from {$table}", true);
             $tableFields = array();
             foreach ($tableInfo as $fieldInfo) {
                 $tableFields[] = $fieldInfo['Field'];

@@ -4,6 +4,8 @@ use AntService\Module;
 use AntService\OutPut;
 use AntService\Src\Common\Config;
 use AntService\Src\Common\DataType;
+use AntService\Src\DataBase\Depend;
+use AntService\Src\DataBase\PdoConn;
 
 /** 获取用户目录地址 */
 function getUserDir()
@@ -11,6 +13,23 @@ function getUserDir()
     return $_SERVER['DOCUMENT_ROOT'];
 }
 
+function useDB()
+{
+    if ($GLOBALS['pdo_conn']) return $GLOBALS['pdo_conn'];
+    $GLOBALS['pdo_conn'] = new PdoConn();
+    return useDB();
+}
+
+/**
+ * 同步数据表
+ * @param array $dbDepend 依赖规则 例：['user' => 'id,nickname,age', 'user_account' => 'id,uid,username,password']
+ * @return boolean
+ * @author mahaibo <mahaibo@hongbang.js.cn>
+ */
+function syncDataBase($dbDepend)
+{
+    return Depend::syncDataBase($dbDepend);
+}
 
 function convertArray($variate, string $delimiter = ',')
 {
