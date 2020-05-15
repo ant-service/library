@@ -63,7 +63,7 @@ function useModule(string $moduleName, array $payload = array())
     return Module::use($moduleName, $payload);
 }
 
-function getPayload(string $key = '')
+function getArguments(string $key = '')
 {
     return Module::getArguments($key);
 }
