@@ -4,6 +4,7 @@ namespace AntService\Src\DataBase;
 
 use AntService\OutPut;
 use AntService\Src\Common\Config;
+use Exception;
 use PDO;
 use PDOException;
 
@@ -28,12 +29,16 @@ class PdoConn
         $host = $database['HostAddress'] ?? '127.0.0.1';
         $port = $database['HostPort'] ?? 3306;
         $dbName = $database['DbName'] ?? '';
-        return self::$conn = new PDO(
-            "{$databaseType}:host={$host}:{$port};dbname={$dbName}",
-            $database['UserName'],
-            $database['Password'],
-            array(PDO::ATTR_PERSISTENT => true)
-        );
+        try {
+            return self::$conn = new PDO(
+                "{$databaseType}:host={$host}:{$port};dbname={$dbName}",
+                $database['UserName'],
+                $database['Password'],
+                array(PDO::ATTR_PERSISTENT => true)
+            );
+        } catch (Exception $e) {
+            errorOutput('CONNECT_SQL_ERROR', iconv('gbk', 'utf-8', $e->getMessage()));
+        }
     }
     /**
      * 开启事务
