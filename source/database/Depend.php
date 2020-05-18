@@ -41,7 +41,7 @@ class Depend
                         $fieldInfo['type'] . '(' . $fieldInfo['length'] . ')',
                         $fieldInfo['is_pk'] ? 'primary key' : '',
                         'default',
-                        $fieldInfo['default'] === '' ? "''" : $fieldInfo['default'],
+                        is_string($fieldInfo['default']) ?  "'" . $fieldInfo['default'] . "'" : $fieldInfo['default'],
                         'comment',
                         "'" . $fieldInfo['comment'] . "'"
                     );
@@ -60,7 +60,7 @@ class Depend
                         $fieldInfo['type'] . '(' . $fieldInfo['length'] . ')',
                         $fieldInfo['is_pk'] ? 'primary key' : '',
                         'default',
-                        $fieldInfo['default'] === '' ? "''" : $fieldInfo['default'],
+                        is_string($fieldInfo['default']) ?  "'" . $fieldInfo['default'] . "'" : $fieldInfo['default'],
                         'comment',
                         "'" . $fieldInfo['comment'] . "'"
                     );
