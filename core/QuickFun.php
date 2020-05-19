@@ -106,6 +106,10 @@ function removeCache($key)
     return Cache::remove($key);
 }
 
+function getCacheExpires($key){
+    Cache::expires($key);
+}
+
 function setNotify($moduleName, $funcName)
 {
     $uuid = getUUID();
