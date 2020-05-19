@@ -28,7 +28,7 @@ class File implements Cache
             $cacheData = array();
         }
         $cacheData[$keyName] = array('value' => $value, 'expires' => $expires + time());
-        file_put_contents($filePath, base64_encode(serialize($cacheData)));
+        return (bool) file_put_contents($filePath, base64_encode(serialize($cacheData)));
     }
 
     public static function remove(string $key)
@@ -39,6 +39,18 @@ class File implements Cache
         file_put_contents($filePath, base64_encode(serialize($cacheData)));
         return true;
     }
+
+    public static function expires(string $key)
+    {
+        $filePath = self::getCacheFilePath($key, $keyName);
+        $cacheData = unserialize(base64_decode(file_get_contents($filePath)));
+        if ($cacheData === false) {
+            return time() - 1;
+        }
+        return $cacheData[$keyName]['expires'];
+    }
+
+
     private static function getCacheFilePath($key, &$keyname = '')
     {
         $keyMd5 = md5($key);
