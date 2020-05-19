@@ -19,7 +19,8 @@
             "AntService\\Src\\Common\\": "source/common/",
             "AntService\\Src\\DataBase\\": "source/database/",
             "AntService\\Src\\Interfaces\\": "source/interfaces/",
-            "AntService\\Src\\Output\\": "source/output/"
+            "AntService\\Src\\Output\\": "source/output/",
+            "AntService\\Src\\Cache\\": "source/cache/"
         },
         "files": [
             "core/Initialize.php",

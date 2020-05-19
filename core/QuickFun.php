@@ -1,5 +1,6 @@
 <?php
 
+use AntService\Cache;
 use AntService\Module;
 use AntService\OutPut;
 use AntService\Src\Common\Config;
@@ -92,12 +93,12 @@ function readEnv(string $configName)
 
 function setCache($key, $value, $expires = 7200)
 {
-    return useModule(readEnv('CACHE_MODULE'))::set($key, $value, $expires);
+    return Cache::set($key, $value, $expires);
 }
 
 function getCache($key)
 {
-    return useModule(readEnv('CACHE_MODULE'))::get($key);
+    return Cache::get($key);
 }
 
 function setNotify($moduleName, $funcName)

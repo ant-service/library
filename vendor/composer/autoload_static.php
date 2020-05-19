@@ -18,6 +18,7 @@ class ComposerStaticInita4d603e10b323b95a86b37dc154bfec3
             'AntService\\Src\\Interfaces\\' => 26,
             'AntService\\Src\\DataBase\\' => 24,
             'AntService\\Src\\Common\\' => 22,
+            'AntService\\Src\\Cache\\' => 21,
             'AntService\\' => 11,
         ),
     );
@@ -37,7 +38,11 @@ class ComposerStaticInita4d603e10b323b95a86b37dc154bfec3
         ),
         'AntService\\Src\\Common\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/source/Common',
+            0 => __DIR__ . '/../..' . '/source/common',
+        ),
+        'AntService\\Src\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/source/cache',
         ),
         'AntService\\' => 
         array (
