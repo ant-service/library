@@ -31,6 +31,14 @@ class File implements Cache
         file_put_contents($filePath, base64_encode(serialize($cacheData)));
     }
 
+    public static function remove(string $key)
+    {
+        $filePath = self::getCacheFilePath($key, $keyName);
+        $cacheData = unserialize(base64_decode(file_get_contents($filePath)));
+        if (isset($cacheData)) unset($cacheData[$keyName]);
+        file_put_contents($filePath, base64_encode(serialize($cacheData)));
+        return true;
+    }
     private static function getCacheFilePath($key, &$keyname = '')
     {
         $keyMd5 = md5($key);

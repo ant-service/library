@@ -101,6 +101,11 @@ function getCache($key)
     return Cache::get($key);
 }
 
+function removeCache($key)
+{
+    return Cache::remove($key);
+}
+
 function setNotify($moduleName, $funcName)
 {
     $uuid = getUUID();

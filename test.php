@@ -19,7 +19,6 @@ require_once "vendor/autoload.php";
 // Config::read('database');
 // $aa = Config::readEnv('CACHE_MODULE');
 // var_dump($aa);
-Cache::set('aa','bb',1);
-
-// echo Cache::get('aa');
-var_dump(getCache('aa'));
+setCache('a', 'b', 66);
+removeCache('a');
+var_dump(getCache('a'));

@@ -20,6 +20,12 @@ class Cache
         return self::$returnObject::set($key, $value, $expires);
     }
 
+    public static function remove($key)
+    {
+        self::initType();
+        return self::$returnObject::remove($key);
+    }
+
     private static function initType(): void
     {
         $className = 'AntService\Src\Cache\\' . ucfirst(Config::readEnv('CACHE_MODE'));
