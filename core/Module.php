@@ -3,6 +3,7 @@
 namespace AntService;
 
 use AntService\Src\Common\Config;
+use AntService\Src\Common\DataType;
 
 class Module
 {
@@ -72,14 +73,17 @@ class Module
      */
     private static function download(string $moduleName, string $moduleFile): void
     {
-        $downloadUrl = 'compress.zlib://' . Config::readEnv('SERVICE_URL') . '/module/' . $moduleName . '.msphp';
-        $result = file_get_contents($downloadUrl);
-        if (!$result) {
-            OutPut::error('DOWNLOAD_MODULE_FAIL', '官方模块库中不存在此模块');
-        }
-        if (!file_put_contents($moduleFile, $result)) {
-            OutPut::error('WRITE_MODULE_FAIL', '写入模块失败,请检查是否拥有写入权限[' . $moduleFile . ']');
-        }
+        $result = NetworkRequest::postRequest(Config::readEnv('SERVICE_URL') . Config::readEnv('DOWNLOAD_MODULE'), ['token' => Config::read('userinfo.token'), 'moduleName' => $moduleName]);
+
+        if ($result == false) OutPut::error('SEND_REQUEST_FAIL', '请求失败');
+
+        $content = DataType::convertArray($result['content']);
+
+        if ($result['status'] == 500) OutPut::error($content['code'], $content['msg']);
+
+        if ($result['status'] == 200) if (!file_put_contents($moduleFile, base64_decode($content['content']))) OutPut::error('WRITE_MODULE_FAIL', '写入模块失败,请检查是否拥有写入权限[' . $moduleFile . ']');
+
+        if ($result['status'] != 200 && $result['status'] != 500) OutPut::error('CAPTURE UNKNOWN ERROR', '出现位置错误');
     }
 
     private static function getUserDir()
