@@ -34,7 +34,7 @@ class DataType
         } elseif (is_object($variate)) {
             return self::convertArray(json_encode($variate), $delimiter);
         } elseif (is_null($variate)) {
-            return '';
+            return null;
         } else {
             return $variate;
         }

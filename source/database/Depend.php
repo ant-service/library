@@ -37,18 +37,18 @@ class Depend
                 foreach ($missField as $field) {
                     $fieldInfo = $allowFields[$field] ?? errorOutput('SET_FIELD_FAIL', '设置字段失败,官方数据库表[' . $table . ']目前不支持字段[' . $field . ']');
                     $sonArray = array(
-                        $field,
-                        $fieldInfo['type'] . '(' . $fieldInfo['length'] . ')',
+                        self::setField($field),
+                        self::setType($fieldInfo['type'], $fieldInfo['length']),
                         $fieldInfo['is_pk'] ? 'primary key' : '',
-                        'default',
-                        is_string($fieldInfo['default']) ?  "'" . $fieldInfo['default'] . "'" : $fieldInfo['default'],
+                        self::setDefault($fieldInfo['type']),
+                        self::setDefaultValue($fieldInfo['type'], $fieldInfo['default']),
                         'comment',
                         "'" . $fieldInfo['comment'] . "'"
                     );
                     $createArray[] = implode(' ', $sonArray);
                 }
 
-                $createSql = 'create table if not exists ' . $table . '('
+                $createSql = 'create table if not exists `' . $table . '` ('
                     . implode(',', $createArray)
                     . ')engine=' . $dataBaseConfig['Engine'] . ' default charset=' . $dataBaseConfig['Charset'];
             } else {
@@ -56,11 +56,11 @@ class Depend
                     $fieldInfo = $allowFields[$field] ?? errorOutput('SET_FIELD_FAIL', '设置字段失败,官方数据库表[' . $table . ']目前不支持字段[' . $field . ']');
                     $sonArray = array(
                         'add',
-                        $field,
-                        $fieldInfo['type'] . '(' . $fieldInfo['length'] . ')',
+                        self::setField($field),
+                        self::setType($fieldInfo['type'], $fieldInfo['length']),
                         $fieldInfo['is_pk'] ? 'primary key' : '',
-                        'default',
-                        is_string($fieldInfo['default']) ?  "'" . $fieldInfo['default'] . "'" : $fieldInfo['default'],
+                        self::setDefault($fieldInfo['type']),
+                        self::setDefaultValue($fieldInfo['type'], $fieldInfo['default']),
                         'comment',
                         "'" . $fieldInfo['comment'] . "'"
                     );
@@ -72,5 +72,30 @@ class Depend
             PdoConn::execute($createSql);
         }
         return true;
+    }
+
+    private static function setType($type, $length)
+    {
+        if ($type == 'json') return $type;
+        return $type . '(' . $length . ')';
+    }
+
+    private static function setField($field)
+    {
+        return '`' .  $field . '`';
+    }
+
+    private static function setDefault($type)
+    {
+        if ($type == 'json') return '';
+        if ($type == 'int') return 'default 0';
+        return 'default';
+    }
+
+    private static function setDefaultValue($type, $defaultValue)
+    {
+        if ($type == 'json') return '';
+        if (is_string($defaultValue)) return "'" . $defaultValue . "'";
+        if (is_null($defaultValue)) return null;
     }
 }

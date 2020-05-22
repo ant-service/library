@@ -37,6 +37,20 @@ function convertArray($variate, string $delimiter = ',')
     return DataType::convertArray($variate, $delimiter);
 }
 
+function convertJson($variate, $isFormat = false)
+{
+    return DataType::convertJson($variate, $isFormat);
+}
+
+function convertObject($variate)
+{
+    return DataType::convertObject($variate);
+}
+
+function convertString($variate, string $delimiter = ',')
+{
+    return DataType::convertString($variate, $delimiter);
+}
 /**
  * 成功输出
  * @param array|object|string|bool $result 输出数据,会自动转为Output模组指定类型

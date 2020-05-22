@@ -44,6 +44,7 @@ class OutPut
     {
         self::initType();
         header("HTTP/1.1 {$httpStatus}");
+        self::$returnObject::initResponse();
     }
 
     private static function initType(): void
